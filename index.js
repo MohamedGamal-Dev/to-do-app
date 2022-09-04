@@ -19,7 +19,11 @@ let createData = () => {
   // {id:string, task:string, completed:boolean}
   let newTask = { id: uId(), task: input.value, completed: false };
   data.push(newTask);
+
   renderTask();
+
+  localStorage.setItem('data', JSON.stringify(data));
+
   console.log(data);
 };
 
@@ -27,13 +31,24 @@ let renderTask = () => {
   tasks.innerHTML = '';
   data.map((taskItem) => {
     tasks.innerHTML += `
-    <div>
-    <span>${taskItem.task}</span>
+    <div class='task-item'>
+    <span class='task-item--text'>${taskItem.task}</span>
+    <span class='task-item--options'>
+    <i class="fa-solid fa-pen-to-square"></i>
+    <i class="fa-solid fa-trash"></i>
+    </span>
     </div>
     `;
+
     input.value = '';
   });
 };
+
+(() => {
+  data = JSON.parse(localStorage.getItem('data')) || [];
+  console.log(data);
+  renderTask();
+})();
 
 // Helpers:
 let uId = () => {

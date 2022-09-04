@@ -1,0 +1,34 @@
+@use './reset';
+// @use './helpers' as *;
+@use './helpers';
+@use './general';
+
+$dark-gray: rgb(162, 181, 187); //#a2b5bb;
+$light-gray: rgb(207, 210, 207); //#CFD2CF;
+$light-beige: rgb(245, 237, 220); //#F5EDDC;
+$accent-red: rgb(235, 29, 54); //#EB1D36;
+$white: rgb(255, 255, 255, 1);
+// helpers.remCalc(15px);
+
+.app {
+  width: 40%;
+  // border-radius: 1rem;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    $light-gray 25%,
+    $light-beige 50%,
+    $white 100%
+  );
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+  .heading {
+    padding: 1rem 1rem 0.5rem;
+    border-bottom: 0.2rem solid $light-gray;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

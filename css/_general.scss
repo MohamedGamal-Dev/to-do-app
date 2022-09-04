@@ -1,0 +1,31 @@
+@use './helpers';
+
+html {
+  box-sizing: border-box;
+  @include helpers.fontSize(16px);
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: sans-serif, Helvetica, Arial;
+  background: rgb(162, 181, 187);
+  background: linear-gradient(
+    180deg,
+    rgba(162, 181, 187, 1) 0%,
+    rgba(207, 210, 207, 1) 50%,
+    rgba(245, 237, 220, 1) 100%
+  );
+  height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

@@ -1,0 +1,9 @@
+@function remCalc($num) {
+  $remSize: $num / 16px;
+  @return #{$remSize}rem;
+}
+
+@mixin fontSize($num) {
+  font-size: $num;
+  font-size: remCalc($num);
+}

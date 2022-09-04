@@ -38,6 +38,7 @@ let renderTask = () => {
 let createTaskItem = (task) => {
   let taskItem = document.createElement('div');
   taskItem.classList.add('task-item');
+  taskItem.setAttribute('id', `${task.id}`);
   tasks.append(taskItem);
 
   let taskTextSpan = document.createElement('span');
@@ -73,7 +74,17 @@ let createTaskItem = (task) => {
 };
 
 let deleteTask = (e) => {
-  console.log(e, 'delete');
+  let targetTask =
+    e.target.parentElement.parentElement.parentElement.parentElement;
+
+  // console.log(targetTask.id, 'delete-targetID');
+
+  targetTask.remove();
+  data.splice(targetTask.id, 1);
+
+  localStorage.setItem('data', JSON.stringify(data));
+
+  console.log(data, 'delete-update');
 };
 
 (() => {

@@ -16,8 +16,8 @@ form.addEventListener('submit', (e) => {
 let data = [];
 
 let createData = () => {
-  // {id:number, task:string, completed:boolean}
-  let newTask = { id: null, task: input.value, completed: false };
+  // {id:string, task:string, completed:boolean}
+  let newTask = { id: uId(), task: input.value, completed: false };
   data.push(newTask);
   renderTask();
   console.log(data);
@@ -33,4 +33,14 @@ let renderTask = () => {
     `;
     input.value = '';
   });
+};
+
+// Helpers:
+let uId = () => {
+  return (
+    Date.now().toString(36) +
+    Math.floor(
+      Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
+    ).toString(36)
+  );
 };

@@ -17,36 +17,63 @@ let data = [];
 
 let createData = () => {
   // {id:string, task:string, completed:boolean}
-  let newTask = { id: uId(), task: input.value, completed: false };
+  let newTask = { id: uId(), text: input.value, completed: false };
   data.push(newTask);
 
   renderTask();
 
   localStorage.setItem('data', JSON.stringify(data));
 
-  console.log(data);
+  console.log(data, 'create');
 };
 
 let renderTask = () => {
   tasks.innerHTML = '';
-  data.map((taskItem) => {
-    tasks.innerHTML += `
-    <div class='task-item'>
-    <span class='task-item--text'>${taskItem.task}</span>
-    <span class='task-item--options'>
-    <i class="fa-solid fa-pen-to-square"></i>
-    <i class="fa-solid fa-trash"></i>
-    </span>
-    </div>
-    `;
-
+  data.map((task) => {
+    createTaskItem(task);
     input.value = '';
   });
 };
 
+let createTaskItem = (task) => {
+  let taskItem = document.createElement('div');
+  taskItem.classList.add('task-item');
+  tasks.append(taskItem);
+
+  let taskTextSpan = document.createElement('span');
+  taskTextSpan.classList.add('task-item--text');
+  taskItem.prepend(taskTextSpan);
+  taskTextSpan.innerHTML += `${task.text}`;
+
+  let taskTextOptions = document.createElement('span');
+  taskTextOptions.classList.add('task-item--options');
+  taskItem.append(taskTextOptions);
+
+  let editIcon = document.createElement('i');
+  editIcon.classList.add('fa-solid');
+  editIcon.classList.add('fa-pen-to-square');
+  taskTextOptions.prepend(editIcon);
+  editIcon.addEventListener('click', (e) => {
+    console.log(e, 'edit');
+  });
+
+  let deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fa-solid');
+  deleteIcon.classList.add('fa-trash');
+  deleteIcon.classList.add('icon-pointer');
+  taskTextOptions.append(deleteIcon);
+  deleteIcon.addEventListener('click', (e) => {
+    console.log(e, 'delete');
+  });
+};
+
+let deleteTask = (e) => {
+  console.log(e, 'delete');
+};
+
 (() => {
   data = JSON.parse(localStorage.getItem('data')) || [];
-  console.log(data);
+  console.log(data, 'initialization');
   renderTask();
 })();
 

@@ -49,22 +49,27 @@ let createTaskItem = (task) => {
   taskTextOptions.classList.add('task-item--options');
   taskItem.append(taskTextOptions);
 
+  let editWrap = document.createElement('span');
+  editWrap.classList.add('delete-wrap');
+  taskTextOptions.prepend(editWrap);
+  editWrap.addEventListener('click', (e) => {
+    console.log(e, 'edit');
+  });
+
   let editIcon = document.createElement('i');
   editIcon.classList.add('fa-solid');
   editIcon.classList.add('fa-pen-to-square');
-  taskTextOptions.prepend(editIcon);
-  editIcon.addEventListener('click', (e) => {
-    console.log(e, 'edit');
-  });
+  editWrap.prepend(editIcon);
+
+  let deleteWrap = document.createElement('span');
+  deleteWrap.classList.add('delete-wrap');
+  taskTextOptions.append(deleteWrap);
+  deleteWrap.addEventListener('click', deleteTask);
 
   let deleteIcon = document.createElement('i');
   deleteIcon.classList.add('fa-solid');
   deleteIcon.classList.add('fa-trash');
-  deleteIcon.classList.add('icon-pointer');
-  taskTextOptions.append(deleteIcon);
-  deleteIcon.addEventListener('click', (e) => {
-    console.log(e, 'delete');
-  });
+  deleteWrap.append(deleteIcon);
 };
 
 let deleteTask = (e) => {

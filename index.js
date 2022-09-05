@@ -109,13 +109,13 @@ let deleteTask = (e) => {
 let editTask = (e) => {
   let targetText = e.target.parentElement.parentElement.parentElement;
 
-  console.dir(targetText, 'save');
+  // console.dir(targetText);
 
   let targetEditUpdate = e.target.parentElement.parentElement.childNodes[1];
   let targetEditWrap = e.target.parentElement;
 
-  console.dir(targetEditUpdate, 'edit-update');
-  console.dir(targetEditWrap, 'edit-wrap');
+  // console.dir(targetEditUpdate, 'edit-update');
+  // console.dir(targetEditWrap, 'edit-wrap');
   // targetEditUpdate.nodeName "#comment"
   // font awesome Error
 
@@ -126,20 +126,39 @@ let editTask = (e) => {
 };
 
 let updateTask = (e) => {
-  let targetText = e.target.parentElement.parentElement.parentElement;
-
+  let targetText =
+    e.target.parentElement.parentElement.parentElement.childNodes[0];
   let targetEditWrap = e.target.parentElement.parentElement.childNodes[0];
   let targetEditUpdate = e.target.parentElement;
 
+  let targetTask = e.target.parentElement.parentElement.parentElement;
+
   // console.dir(targetEditUpdate);
   // console.dir(targetEditWrap);
+  // console.dir(targetTask);
 
   targetEditUpdate.style.display = 'none';
   targetEditWrap.style.display = 'inline-block';
 
   targetText.setAttribute('contentEditable', false);
+
+  let updatedTaskText =
+    e.target.parentElement.parentElement.parentElement.childNodes[0]
+      .textContent;
   // console.dir(saveBtn, 'edit');
-  console.log('save');
+  // console.dir(targetText, 'save');
+  // console.log(updatedTaskText, 'save');
+
+  data.find((t) => {
+    t && t.id === String(targetTask.id);
+    {
+      return (t.text = updatedTaskText);
+    }
+  });
+
+  localStorage.setItem('data', JSON.stringify(data));
+
+  console.log(data, 'updated-data');
 };
 
 (() => {

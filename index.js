@@ -36,32 +36,49 @@ let renderTask = () => {
 };
 
 let createTaskItem = (task) => {
+  // Task-Item Container
   let taskItem = document.createElement('div');
   taskItem.classList.add('task-item');
   taskItem.setAttribute('id', `${task.id}`);
   tasks.append(taskItem);
 
+  // Task--TEXT--
   let taskTextSpan = document.createElement('span');
   taskTextSpan.classList.add('task-item--text');
   taskItem.prepend(taskTextSpan);
   taskTextSpan.innerHTML += `${task.text}`;
 
+  // Task-OPTIONS
   let taskTextOptions = document.createElement('span');
   taskTextOptions.classList.add('task-item--options');
   taskItem.append(taskTextOptions);
 
+  // Task--EDIT
   let editWrap = document.createElement('span');
-  editWrap.classList.add('delete-wrap');
+  editWrap.classList.add('edit-wrap');
   taskTextOptions.prepend(editWrap);
-  editWrap.addEventListener('click', (e) => {
-    console.log(e, 'edit');
-  });
+  editWrap.addEventListener('click', editTask);
 
-  let editIcon = document.createElement('i');
-  editIcon.classList.add('fa-solid');
-  editIcon.classList.add('fa-pen-to-square');
+  let editIcon = document.createElement('button');
+  // editIcon.classList.add('fa-solid');
+  // editIcon.classList.add('fa-pen-to-square');
+  editIcon.innerHTML = 'edit';
   editWrap.prepend(editIcon);
 
+  // Task--EDIT--SAVE
+  let editUpdate = document.createElement('span');
+  editUpdate.classList.add('edit-update');
+  taskTextOptions.appendChild(editUpdate);
+  editUpdate.style.display = 'none';
+  editUpdate.addEventListener('click', updateTask);
+
+  let saveBtn = document.createElement('button');
+  // saveBtn.classList.add('fa-solid');
+  // saveBtn.classList.add('fa-pen-to-square');
+  saveBtn.innerHTML = 'Save';
+  editUpdate.prepend(saveBtn);
+
+  // Task--DELETE
   let deleteWrap = document.createElement('span');
   deleteWrap.classList.add('delete-wrap');
   taskTextOptions.append(deleteWrap);
@@ -85,6 +102,44 @@ let deleteTask = (e) => {
   localStorage.setItem('data', JSON.stringify(data));
 
   console.log(data, 'delete-update');
+};
+
+// Prototypes
+
+let editTask = (e) => {
+  let targetText = e.target.parentElement.parentElement.parentElement;
+
+  console.dir(targetText, 'save');
+
+  let targetEditUpdate = e.target.parentElement.parentElement.childNodes[1];
+  let targetEditWrap = e.target.parentElement;
+
+  console.dir(targetEditUpdate, 'edit-update');
+  console.dir(targetEditWrap, 'edit-wrap');
+  // targetEditUpdate.nodeName "#comment"
+  // font awesome Error
+
+  targetEditUpdate.style.display = 'inline-block';
+  targetEditWrap.style.display = 'none';
+
+  targetText.setAttribute('contentEditable', true);
+};
+
+let updateTask = (e) => {
+  let targetText = e.target.parentElement.parentElement.parentElement;
+
+  let targetEditWrap = e.target.parentElement.parentElement.childNodes[0];
+  let targetEditUpdate = e.target.parentElement;
+
+  // console.dir(targetEditUpdate);
+  // console.dir(targetEditWrap);
+
+  targetEditUpdate.style.display = 'none';
+  targetEditWrap.style.display = 'inline-block';
+
+  targetText.setAttribute('contentEditable', false);
+  // console.dir(saveBtn, 'edit');
+  console.log('save');
 };
 
 (() => {

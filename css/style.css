@@ -223,4 +223,9 @@ body {
 
 .hidden {
   display: none;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: rgb(235, 29, 54);
 }/*# sourceMappingURL=style.css.map */

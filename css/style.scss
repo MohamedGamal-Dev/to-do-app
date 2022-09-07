@@ -36,3 +36,8 @@ $white: rgb(255, 255, 255, 1);
 .hidden {
   display: none;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: $accent-red;
+}

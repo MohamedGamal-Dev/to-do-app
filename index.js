@@ -47,6 +47,7 @@ let createTaskItem = (task) => {
   taskTextSpan.classList.add('task-item--text');
   taskItem.prepend(taskTextSpan);
   taskTextSpan.innerHTML += `${task.text}`;
+  taskTextSpan.addEventListener('click', toggleCompleted);
 
   // Task-OPTIONS
   let taskTextOptions = document.createElement('span');
@@ -69,7 +70,7 @@ let createTaskItem = (task) => {
   let editUpdate = document.createElement('span');
   editUpdate.classList.add('edit-update');
   taskTextOptions.appendChild(editUpdate);
-  editUpdate.style.display = 'none';
+  editUpdate.classList.add('hidden');
   editUpdate.addEventListener('click', updateTask);
 
   let saveBtn = document.createElement('button');
@@ -88,6 +89,33 @@ let createTaskItem = (task) => {
   deleteIcon.classList.add('fa-solid');
   deleteIcon.classList.add('fa-trash');
   deleteWrap.append(deleteIcon);
+};
+
+let toggleCompleted = (e) => {
+  let toggleTarget = e.target.parentElement;
+  let toggleTextTarget = e.target.parentElement.childNodes[0];
+
+  // console.log(toggleTarget.id, 'toggleTarget');
+  // console.dir(toggleTextTarget, 'toggleTextTarget');
+
+  data.find((t) => {
+    t && t.id === String(toggleTarget.id);
+    {
+      // console.log(t);
+      // console.log(toggleTextTarget);
+      // t.completed
+      //   ? toggleTextTarget.classList.add('completed')
+      //   : toggleTextTarget.classList.remove('completed');
+      // console.dir(toggleTarget, 'complete');
+      // console.dir(toggleTextTarget, 'Not So much');
+      toggleTextTarget.classList.toggle('completed');
+      return (t.completed = !t.completed);
+    }
+  });
+
+  localStorage.setItem('data', JSON.stringify(data));
+
+  console.log(data, 'toggle-data-update');
 };
 
 let deleteTask = (e) => {
@@ -119,8 +147,8 @@ let editTask = (e) => {
   // targetEditUpdate.nodeName "#comment"
   // font awesome Error
 
-  targetEditUpdate.style.display = 'inline-block';
-  targetEditWrap.style.display = 'none';
+  targetEditUpdate.classList.remove('hidden');
+  targetEditWrap.classList.add('hidden');
 
   targetText.setAttribute('contentEditable', true);
 };
@@ -137,8 +165,8 @@ let updateTask = (e) => {
   // console.dir(targetEditWrap);
   // console.dir(targetTask);
 
-  targetEditUpdate.style.display = 'none';
-  targetEditWrap.style.display = 'inline-block';
+  targetEditUpdate.classList.add('hidden');
+  targetEditWrap.classList.remove('hidden');
 
   targetText.setAttribute('contentEditable', false);
 

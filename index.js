@@ -1,18 +1,13 @@
-// Ref's
+//  === General Refs ===
 let app = document.querySelector('.app');
 let formWrap = document.querySelector('.task-form');
-let form = document.querySelector('.task-form-add');
-let input = document.querySelector('.task-input');
-let submit = document.querySelector('.task-button');
-let listWrap = document.querySelector('.list-wrap');
+let form = document.querySelector('#task-form-add');
+let input = document.querySelector('#task-form-add--input');
+let submit = document.querySelector('#task-form-add--button');
+let listWrap = document.querySelector('.tasks-list-wrap');
 let tasks = document.querySelector('.tasks-list');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  createData();
-});
-
+// ===* CREATE APP DATA *===
 let data = [];
 
 let createData = () => {
@@ -23,10 +18,16 @@ let createData = () => {
   renderTask();
 
   localStorage.setItem('data', JSON.stringify(data));
-
-  console.log(data, 'create');
+  console.log(data, '**CREATE**');
 };
 
+// ===*- ADD TASK -*===
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  createData();
+});
+
+// ===* READ APP DATA *===
 let renderTask = () => {
   tasks.innerHTML = '';
   data.map((task) => {
@@ -35,167 +36,59 @@ let renderTask = () => {
   });
 };
 
+// ===*- Build Task -*===
 let createTaskItem = (task) => {
-  // Task-Item Container
   let taskItem = document.createElement('div');
+  let taskItemText = document.createElement('div');
+  let taskItemTextInner = document.createTextNode(`${task.text}`);
+
+  let taskOptions = document.createElement('div');
+  let taskOptionsEdit = document.createElement('div');
+  let taskOptionsEditBtn = document.createElement('button');
+  let taskOptionsEditBtnInner = document.createTextNode('Edit');
+  let taskOptionsEditSave = document.createElement('div');
+  let taskOptionsEditSaveBtn = document.createElement('button');
+  let taskOptionsEditSaveBtnInner = document.createTextNode('Save');
+  let taskOptionsDelete = document.createElement('div');
+  let taskOptionsDeleteBtn = document.createElement('button');
+  let taskOptionsDeleteBtnInner = document.createTextNode('Delete');
+
   taskItem.classList.add('task-item');
   taskItem.setAttribute('id', `${task.id}`);
+  taskItemText.classList.add('task-item');
+  taskItemEditInput.classList.add('hidden');
+
+  taskOptions.classList.add('task-item--options');
+  taskOptionsEdit.classList.add('task-options--edit');
+  taskOptionsEditSave.classList.add('task-options--edit__save');
+  taskOptionsEditSave.classList.add('hidden');
+  taskOptionsDelete.classList.add('task-options--delete');
+
+  // taskItemText.addEventListener('click', toggleCompleted);
+  // taskOptionsEdit.addEventListener('click', editTask);
+  // taskOptionsEditSave.addEventListener('click', updateTask);
+  // taskOptionsDelete.addEventListener('click', deleteTask);
+
   tasks.append(taskItem);
-
-  // Task--TEXT--
-  let taskTextSpan = document.createElement('span');
-  taskTextSpan.classList.add('task-item--text');
-  taskItem.prepend(taskTextSpan);
-  taskTextSpan.innerHTML += `${task.text}`;
-  taskTextSpan.addEventListener('click', toggleCompleted);
-
-  // Task-OPTIONS
-  let taskTextOptions = document.createElement('span');
-  taskTextOptions.classList.add('task-item--options');
-  taskItem.append(taskTextOptions);
-
-  // Task--EDIT
-  let editWrap = document.createElement('span');
-  editWrap.classList.add('edit-wrap');
-  taskTextOptions.prepend(editWrap);
-  editWrap.addEventListener('click', editTask);
-
-  let editIcon = document.createElement('button');
-  // editIcon.classList.add('fa-solid');
-  // editIcon.classList.add('fa-pen-to-square');
-  editIcon.innerHTML = 'edit';
-  editWrap.prepend(editIcon);
-
-  // Task--EDIT--SAVE
-  let editUpdate = document.createElement('span');
-  editUpdate.classList.add('edit-update');
-  taskTextOptions.appendChild(editUpdate);
-  editUpdate.classList.add('hidden');
-  editUpdate.addEventListener('click', updateTask);
-
-  let saveBtn = document.createElement('button');
-  // saveBtn.classList.add('fa-solid');
-  // saveBtn.classList.add('fa-pen-to-square');
-  saveBtn.innerHTML = 'Save';
-  editUpdate.prepend(saveBtn);
-
-  // Task--DELETE
-  let deleteWrap = document.createElement('span');
-  deleteWrap.classList.add('delete-wrap');
-  taskTextOptions.append(deleteWrap);
-  deleteWrap.addEventListener('click', deleteTask);
-
-  let deleteIcon = document.createElement('i');
-  deleteIcon.classList.add('fa-solid');
-  deleteIcon.classList.add('fa-trash');
-  deleteWrap.append(deleteIcon);
+  taskItem.append(taskItemText, taskOptions);
+  taskItemText.appendChild(taskItemTextInner);
+  taskOptions.append(taskOptionsEdit, taskOptionsEditSave, taskOptionsDelete);
+  taskOptionsEdit.appendChild(taskOptionsEditBtn);
+  taskOptionsEditBtn.appendChild(taskOptionsEditBtnInner);
+  taskOptionsEditSave.appendChild(taskOptionsEditSaveBtn);
+  taskOptionsEditSaveBtn.appendChild(taskOptionsEditSaveBtnInner);
+  taskOptionsDelete.appendChild(taskOptionsDeleteBtn);
+  taskOptionsDeleteBtn.appendChild(taskOptionsDeleteBtnInner);
 };
 
-let toggleCompleted = (e) => {
-  let toggleTarget = e.target.parentElement;
-  let toggleTextTarget = e.target.parentElement.childNodes[0];
-
-  // console.log(toggleTarget.id, 'toggleTarget');
-  // console.dir(toggleTextTarget, 'toggleTextTarget');
-
-  data.find((t) => {
-    t && t.id === String(toggleTarget.id);
-    {
-      // console.log(t);
-      // console.log(toggleTextTarget);
-      // t.completed
-      //   ? toggleTextTarget.classList.add('completed')
-      //   : toggleTextTarget.classList.remove('completed');
-      // console.dir(toggleTarget, 'complete');
-      // console.dir(toggleTextTarget, 'Not So much');
-      toggleTextTarget.classList.toggle('completed');
-      return (t.completed = !t.completed);
-    }
-  });
-
-  localStorage.setItem('data', JSON.stringify(data));
-
-  console.log(data, 'toggle-data-update');
-};
-
-let deleteTask = (e) => {
-  let targetTask =
-    e.target.parentElement.parentElement.parentElement.parentElement;
-
-  // console.log(targetTask.id, 'delete-targetID');
-
-  targetTask.remove();
-  data.splice(targetTask.id, 1);
-
-  localStorage.setItem('data', JSON.stringify(data));
-
-  console.log(data, 'delete-update');
-};
-
-// Prototypes
-
-let editTask = (e) => {
-  let targetText = e.target.parentElement.parentElement.parentElement;
-
-  // console.dir(targetText);
-
-  let targetEditUpdate = e.target.parentElement.parentElement.childNodes[1];
-  let targetEditWrap = e.target.parentElement;
-
-  // console.dir(targetEditUpdate, 'edit-update');
-  // console.dir(targetEditWrap, 'edit-wrap');
-  // targetEditUpdate.nodeName "#comment"
-  // font awesome Error
-
-  targetEditUpdate.classList.remove('hidden');
-  targetEditWrap.classList.add('hidden');
-
-  targetText.setAttribute('contentEditable', true);
-};
-
-let updateTask = (e) => {
-  let targetText =
-    e.target.parentElement.parentElement.parentElement.childNodes[0];
-  let targetEditWrap = e.target.parentElement.parentElement.childNodes[0];
-  let targetEditUpdate = e.target.parentElement;
-
-  let targetTask = e.target.parentElement.parentElement.parentElement;
-
-  // console.dir(targetEditUpdate);
-  // console.dir(targetEditWrap);
-  // console.dir(targetTask);
-
-  targetEditUpdate.classList.add('hidden');
-  targetEditWrap.classList.remove('hidden');
-
-  targetText.setAttribute('contentEditable', false);
-
-  let updatedTaskText =
-    e.target.parentElement.parentElement.parentElement.childNodes[0]
-      .textContent;
-  // console.dir(saveBtn, 'edit');
-  // console.dir(targetText, 'save');
-  // console.log(updatedTaskText, 'save');
-
-  data.find((t) => {
-    t && t.id === String(targetTask.id);
-    {
-      return (t.text = updatedTaskText);
-    }
-  });
-
-  localStorage.setItem('data', JSON.stringify(data));
-
-  console.log(data, 'updated-data');
-};
-
+// === Initialization ===
 (() => {
   data = JSON.parse(localStorage.getItem('data')) || [];
-  console.log(data, 'initialization');
   renderTask();
+  console.log(data, '**INITIALIZATION**');
 })();
 
-// Helpers:
+// === HELPERS (>=>
 let uId = () => {
   return (
     Date.now().toString(36) +

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" /> -->
   <link rel="stylesheet" href="/css/style.css" />
 
   <title>To-Do App</title>
@@ -20,22 +20,32 @@
         <h1>ToDo List</h1>
       </div>
 
-      <div class="task-form">
-        <form class="task-form-add">
-          <input type="text" class="task-input" name="task-input" placeholder="Enter Task Details" value="" autofocus>
-          <button type="submit" class="task-button">Add</button>
+      <section class="task-form">
+        <form id="task-form-add">
+          <input 
+          type="text" 
+          id="task-form-add--input" 
+          name="task-form-add--input" 
+          placeholder="Enter Task Details" 
+          value="" autofocus>
+
+          <button 
+          type="submit" 
+          id="task-form-add--button">
+          Add
+        </button>
         </form>
-      </div>
+      </section>
       
-      <div class="list-wrap">
+      <section class="tasks-list-wrap">
         <div class="tasks-list"></div>
-      </div>
+      </section>
     </div>
 
   </div>
 
   <!-- JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script> -->
   <script type="module" src="/index.js"></script>
 </body>
 </html>

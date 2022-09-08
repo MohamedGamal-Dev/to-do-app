@@ -11,7 +11,7 @@ $white: rgb(255, 255, 255, 1);
 // helpers.remCalc(15px);
 
 .app {
-  width: 40%;
+  width: 50%;
   // border-radius: 1rem;
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -30,6 +30,17 @@ $white: rgb(255, 255, 255, 1);
       margin: 0;
       padding: 0;
     }
+  }
+}
+
+.task-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .task-item--options {
+    display: inline-flex;
   }
 }
 

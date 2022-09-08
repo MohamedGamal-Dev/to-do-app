@@ -207,7 +207,7 @@ body {
 }
 
 .app {
-  width: 40%;
+  width: 50%;
   background: rgb(255, 255, 255);
   background: linear-gradient(180deg, rgb(207, 210, 207) 25%, rgb(245, 237, 220) 50%, rgb(255, 255, 255) 100%);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -219,6 +219,16 @@ body {
 .app .heading h1 {
   margin: 0;
   padding: 0;
+}
+
+.task-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-item .task-item--options {
+  display: inline-flex;
 }
 
 .hidden {

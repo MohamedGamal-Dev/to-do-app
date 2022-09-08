@@ -18,7 +18,7 @@ let createData = () => {
   renderTask();
 
   localStorage.setItem('data', JSON.stringify(data));
-  console.log(data, '**CREATE**');
+  console.log(data, '**CREATE-DATA**');
 };
 
 // ===*- ADD TASK -*===
@@ -69,7 +69,7 @@ let createTaskItem = (task) => {
   taskOptionsEditSave.classList.add('hidden');
 
   tasks.append(taskItem);
-  // tasks.insertBefore(taskItem, tasks.firstChild);
+  // tasks.insertBefore(taskItem, tasks.firstChild); // Reverse
   taskItem.append(taskItemText, taskItemEditInput, taskOptions);
   taskItemText.appendChild(taskItemTextInner);
 
@@ -95,20 +95,16 @@ let createTaskItem = (task) => {
     taskItemText.classList.toggle('hidden');
     taskOptionsEdit.classList.toggle('hidden');
 
-    let taskItemEditInputInner = document.createTextNode(
-      taskItemEditInput.value
-    );
-    taskItemText.innerHTML = '';
-    taskItemText.appendChild(taskItemEditInputInner);
+    taskItemText.innerHTML = taskItemEditInput.value;
 
     let taskOptionsEditSaveID = String(taskItem.getAttribute('id'));
 
-    data.find((t) => {
-      t && t.id === taskOptionsEditSaveID;
-      {
-        return (t.text = taskItemEditInput.value);
-      }
+    data.map((task) => {
+      task.id === taskOptionsEditSaveID
+        ? (task.text = taskItemEditInput.value)
+        : task;
     });
+
     localStorage.setItem('data', JSON.stringify(data));
     console.log(data, '**UPDATED-DATA**');
   });

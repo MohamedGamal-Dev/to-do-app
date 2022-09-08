@@ -59,6 +59,7 @@ let createTaskItem = (task) => {
   taskItem.setAttribute('id', `${task.id}`);
   taskItemText.classList.add('task-item');
   taskItemEditInput.setAttribute('id', `${task.id}`);
+  taskItemEditInput.setAttribute('type', 'text');
 
   taskOptions.classList.add('task-item--options');
   taskOptionsEdit.classList.add('task-options--edit');
@@ -69,7 +70,7 @@ let createTaskItem = (task) => {
   taskOptionsEditSave.classList.add('hidden');
 
   tasks.append(taskItem);
-  // tasks.insertBefore(taskItem, tasks.firstChild); // Reverse
+
   taskItem.append(taskItemText, taskItemEditInput, taskOptions);
   taskItemText.appendChild(taskItemTextInner);
 
@@ -81,7 +82,9 @@ let createTaskItem = (task) => {
   taskOptionsDelete.appendChild(taskOptionsDeleteBtn);
   taskOptionsDeleteBtn.appendChild(taskOptionsDeleteBtnInner);
 
-  // === UPDATE TASK ===
+  let taskItemId = String(taskItem.getAttribute('id'));
+
+  // ===* UPDATE TASK *===
   taskOptionsEdit.addEventListener('click', function () {
     taskItemEditInput.classList.toggle('hidden');
     taskOptionsEditSave.classList.toggle('hidden');
@@ -97,20 +100,32 @@ let createTaskItem = (task) => {
 
     taskItemText.innerHTML = taskItemEditInput.value;
 
-    let taskOptionsEditSaveID = String(taskItem.getAttribute('id'));
-
     data.map((task) => {
-      task.id === taskOptionsEditSaveID
-        ? (task.text = taskItemEditInput.value)
-        : task;
+      task.id === taskItemId ? (task.text = taskItemEditInput.value) : task;
     });
 
     localStorage.setItem('data', JSON.stringify(data));
     console.log(data, '**UPDATED-DATA**');
   });
 
-  // taskItemText.addEventListener('click', toggleCompleted);
-  // taskOptionsDelete.addEventListener('click', deleteTask);
+  // ===*- TOGGLE COMPLETED -*===
+  taskItemText.addEventListener('click', function () {
+    data.find((task) => {
+      if (task.id === String(taskItem.getAttribute('id'))) {
+        taskItemText.classList.toggle('completed');
+        task.completed = !task.completed;
+      }
+    });
+
+    localStorage.setItem('data', JSON.stringify(data));
+    console.log(data, '**DATA--TOGGLE-COMPLETED**');
+  });
+  task.completed && taskItemText.classList.toggle('completed');
+
+  // ===* DELETE TASK *===
+  // taskOptionsDelete.addEventListener('click', function(){
+
+  // });
 };
 
 // === Initialization ===

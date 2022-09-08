@@ -18,7 +18,7 @@ let createData = () => {
   renderTask();
 
   localStorage.setItem('data', JSON.stringify(data));
-  console.log(data, '**CREATE-DATA**');
+  console.log(data, '**DATA--CREATE**');
 };
 
 // ===*- ADD TASK -*===
@@ -105,13 +105,13 @@ let createTaskItem = (task) => {
     });
 
     localStorage.setItem('data', JSON.stringify(data));
-    console.log(data, '**UPDATED-DATA**');
+    console.log(data, '**DATA--UPDATED**');
   });
 
   // ===*- TOGGLE COMPLETED -*===
   taskItemText.addEventListener('click', function () {
     data.find((task) => {
-      if (task.id === String(taskItem.getAttribute('id'))) {
+      if (task.id === taskItemId) {
         taskItemText.classList.toggle('completed');
         task.completed = !task.completed;
       }
@@ -123,9 +123,18 @@ let createTaskItem = (task) => {
   task.completed && taskItemText.classList.toggle('completed');
 
   // ===* DELETE TASK *===
-  // taskOptionsDelete.addEventListener('click', function(){
+  taskOptionsDelete.addEventListener('click', function (e) {
+    let filteredData = data.filter((task) => {
+      return task.id !== taskItemId;
+    });
 
-  // });
+    data = filteredData;
+
+    localStorage.setItem('data', JSON.stringify(data));
+    console.log(data, '**DATA--DELETE**');
+
+    renderTask();
+  });
 };
 
 // === Initialization ===

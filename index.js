@@ -41,6 +41,8 @@ let createTaskItem = (task) => {
   let taskItem = document.createElement('div');
   let taskItemText = document.createElement('div');
   let taskItemTextInner = document.createTextNode(`${task.text}`);
+  let taskItemEditInput = document.createElement('input');
+  taskItemEditInput.value = task.text;
 
   let taskOptions = document.createElement('div');
   let taskOptionsEdit = document.createElement('div');
@@ -56,22 +58,21 @@ let createTaskItem = (task) => {
   taskItem.classList.add('task-item');
   taskItem.setAttribute('id', `${task.id}`);
   taskItemText.classList.add('task-item');
-  taskItemEditInput.classList.add('hidden');
+  taskItemEditInput.setAttribute('id', `${task.id}`);
 
   taskOptions.classList.add('task-item--options');
   taskOptionsEdit.classList.add('task-options--edit');
   taskOptionsEditSave.classList.add('task-options--edit__save');
-  taskOptionsEditSave.classList.add('hidden');
   taskOptionsDelete.classList.add('task-options--delete');
 
-  // taskItemText.addEventListener('click', toggleCompleted);
-  // taskOptionsEdit.addEventListener('click', editTask);
-  // taskOptionsEditSave.addEventListener('click', updateTask);
-  // taskOptionsDelete.addEventListener('click', deleteTask);
+  taskItemEditInput.classList.add('hidden');
+  taskOptionsEditSave.classList.add('hidden');
 
   tasks.append(taskItem);
-  taskItem.append(taskItemText, taskOptions);
+  // tasks.insertBefore(taskItem, tasks.firstChild);
+  taskItem.append(taskItemText, taskItemEditInput, taskOptions);
   taskItemText.appendChild(taskItemTextInner);
+
   taskOptions.append(taskOptionsEdit, taskOptionsEditSave, taskOptionsDelete);
   taskOptionsEdit.appendChild(taskOptionsEditBtn);
   taskOptionsEditBtn.appendChild(taskOptionsEditBtnInner);
@@ -79,6 +80,41 @@ let createTaskItem = (task) => {
   taskOptionsEditSaveBtn.appendChild(taskOptionsEditSaveBtnInner);
   taskOptionsDelete.appendChild(taskOptionsDeleteBtn);
   taskOptionsDeleteBtn.appendChild(taskOptionsDeleteBtnInner);
+
+  // === UPDATE TASK ===
+  taskOptionsEdit.addEventListener('click', function () {
+    taskItemEditInput.classList.toggle('hidden');
+    taskOptionsEditSave.classList.toggle('hidden');
+    taskItemText.classList.toggle('hidden');
+    taskOptionsEdit.classList.toggle('hidden');
+  });
+
+  taskOptionsEditSave.addEventListener('click', function (e) {
+    taskItemEditInput.classList.toggle('hidden');
+    taskOptionsEditSave.classList.toggle('hidden');
+    taskItemText.classList.toggle('hidden');
+    taskOptionsEdit.classList.toggle('hidden');
+
+    let taskItemEditInputInner = document.createTextNode(
+      taskItemEditInput.value
+    );
+    taskItemText.innerHTML = '';
+    taskItemText.appendChild(taskItemEditInputInner);
+
+    let taskOptionsEditSaveID = String(taskItem.getAttribute('id'));
+
+    data.find((t) => {
+      t && t.id === taskOptionsEditSaveID;
+      {
+        return (t.text = taskItemEditInput.value);
+      }
+    });
+    localStorage.setItem('data', JSON.stringify(data));
+    console.log(data, '**UPDATED-DATA**');
+  });
+
+  // taskItemText.addEventListener('click', toggleCompleted);
+  // taskOptionsDelete.addEventListener('click', deleteTask);
 };
 
 // === Initialization ===

@@ -11,9 +11,9 @@ let tasks = document.querySelector('.tasks-list');
 let data = [];
 
 let createData = () => {
-  // {id:string, task:string, completed:boolean}
+  // {id:string, text:string, completed:boolean}
   let newTask = { id: uId(), text: input.value, completed: false };
-  data.push(newTask);
+  data = [...data, newTask];
 
   renderTask();
 

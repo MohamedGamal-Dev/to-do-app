@@ -127,6 +127,9 @@ body {
     @include h.padAllRem(10, 10, 10, 10);
     flex-grow: 1;
     overflow: hidden;
+    font-size: 1.1rem;
+    // font-weight: 600;
+    line-height: 1.25rem;
   }
 
   &--options {
@@ -179,4 +182,5 @@ body {
 .completed {
   text-decoration: line-through;
   color: $accent-red;
+  // background-color: lighten($dark-gray, 0%);
 }

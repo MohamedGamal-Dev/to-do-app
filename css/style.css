@@ -274,6 +274,8 @@ body {
   padding: 0.625rem 0.625rem 0.625rem 0.625rem;
   flex-grow: 1;
   overflow: hidden;
+  font-size: 1.1rem;
+  line-height: 1.25rem;
 }
 .task-item--options {
   display: flex;

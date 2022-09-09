@@ -121,6 +121,9 @@ let createTaskItem = (task) => {
       if (task.id === taskItemId) {
         taskItemText.classList.toggle('completed');
         task.completed = !task.completed;
+        task.completed
+          ? taskOptionsEditBtn.setAttribute('disabled', '')
+          : taskOptionsEditBtn.removeAttribute('disabled', '');
       }
     });
 
@@ -128,6 +131,9 @@ let createTaskItem = (task) => {
     console.log(data, '**DATA--TOGGLE-COMPLETED**');
   });
   task.completed && taskItemText.classList.toggle('completed');
+  task.completed
+    ? taskOptionsEditBtn.setAttribute('disabled', '')
+    : taskOptionsEditBtn.removeAttribute('disabled', '');
 
   // ===* DELETE TASK *===
   taskOptionsDelete.addEventListener('click', function (e) {

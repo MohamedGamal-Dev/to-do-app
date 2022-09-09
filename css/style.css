@@ -225,7 +225,7 @@ body {
 }
 .app .heading {
   padding: 0.9375rem;
-  border-bottom: 0.125rem rgb(207, 210, 207) solid;
+  border-bottom: 0.125rem #dde4e6 solid;
   background-color: rgb(235, 29, 54);
   color: rgb(245, 237, 220);
 }
@@ -236,7 +236,7 @@ body {
 
 #task-form-add {
   display: flex;
-  border-bottom: 0.125rem rgb(207, 210, 207) solid;
+  border-bottom: 0.125rem #dde4e6 solid;
   background-color: rgb(255, 255, 255);
 }
 #task-form-add--input {
@@ -244,6 +244,7 @@ body {
   flex-grow: 1;
   font-size: 1.25rem;
   line-height: 1.5rem;
+  overflow: hidden;
 }
 #task-form-add--button {
   color: #283336;
@@ -264,9 +265,46 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: #dcdedc;
 }
-.task-item .task-item--options {
-  display: inline-flex;
+.task-item:nth-child(even) {
+  background: rgb(255, 255, 255);
+}
+.task-item--text, .task-item--text__input {
+  padding: 0.625rem 0.625rem 0.625rem 0.625rem;
+  flex-grow: 1;
+  overflow: hidden;
+}
+.task-item--options {
+  display: flex;
+}
+.task-item--options__edit, .task-item--options__save, .task-item--options__delete {
+  padding: 0.625rem;
+  color: #283336;
+  font-weight: 600;
+  text-shadow: 1px 1px rgb(255, 255, 255);
+  background: rgb(207, 210, 207);
+  cursor: pointer;
+}
+.task-item--options__edit:hover, .task-item--options__save:hover {
+  border-right: 0.25rem rgb(235, 29, 54) solid;
+}
+.task-item--options__delete {
+  border-left: 0.125rem #dde4e6 solid;
+}
+.task-item--options__delete:hover {
+  border-left: 0.25rem rgb(235, 29, 54) solid;
+}
+.task-item--options button {
+  cursor: pointer;
+}
+
+.task-item--options__divider {
+  border-bottom: 0.125rem #dde4e6 solid;
+}
+
+.highlight-input {
+  border-bottom: 0.125rem rgb(235, 29, 54) solid;
 }
 
 .hidden {

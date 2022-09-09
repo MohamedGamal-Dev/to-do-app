@@ -57,14 +57,16 @@ let createTaskItem = (task) => {
 
   taskItem.classList.add('task-item');
   taskItem.setAttribute('id', `${task.id}`);
-  taskItemText.classList.add('task-item');
+  taskItemText.classList.add('task-item--text');
+  taskItemEditInput.classList.add('task-item--text__input');
   taskItemEditInput.setAttribute('id', `${task.id}`);
   taskItemEditInput.setAttribute('type', 'text');
 
   taskOptions.classList.add('task-item--options');
-  taskOptionsEdit.classList.add('task-options--edit');
-  taskOptionsEditSave.classList.add('task-options--edit__save');
-  taskOptionsDelete.classList.add('task-options--delete');
+  taskOptions.classList.add('task-item--options__divider');
+  taskOptionsEdit.classList.add('task-item--options__edit');
+  taskOptionsEditSave.classList.add('task-item--options__save');
+  taskOptionsDelete.classList.add('task-item--options__delete');
 
   taskItemEditInput.classList.add('hidden');
   taskOptionsEditSave.classList.add('hidden');
@@ -90,6 +92,9 @@ let createTaskItem = (task) => {
     taskOptionsEditSave.classList.toggle('hidden');
     taskItemText.classList.toggle('hidden');
     taskOptionsEdit.classList.toggle('hidden');
+    taskItem.classList.toggle('highlight-input');
+    taskOptions.classList.toggle('task-item--options__divider');
+    taskItemEditInput.focus();
   });
 
   taskOptionsEditSave.addEventListener('click', function (e) {
@@ -97,6 +102,8 @@ let createTaskItem = (task) => {
     taskOptionsEditSave.classList.toggle('hidden');
     taskItemText.classList.toggle('hidden');
     taskOptionsEdit.classList.toggle('hidden');
+    taskItem.classList.toggle('highlight-input');
+    taskOptions.classList.toggle('task-item--options__divider');
 
     taskItemText.innerHTML = taskItemEditInput.value;
 

@@ -1,6 +1,6 @@
 @use './reset';
 // @use './helpers' as *;
-@use './helpers';
+@use './helpers' as h;
 @use './general';
 
 $dark-gray: rgb(162, 181, 187); //#a2b5bb;
@@ -8,10 +8,29 @@ $light-gray: rgb(207, 210, 207); //#CFD2CF;
 $light-beige: rgb(245, 237, 220); //#F5EDDC;
 $accent-red: rgb(235, 29, 54); //#EB1D36;
 $white: rgb(255, 255, 255, 1);
-// helpers.remCalc(15px);
+// h.pxRemCalc(15px);
+$divider: h.pxRemCalc(2) $light-gray solid;
+$sideBorder: h.pxRemCalc(4) $accent-red solid;
+
+body {
+  font-family: sans-serif, Helvetica, Arial;
+  background: rgb(162, 181, 187);
+  background: linear-gradient(
+    180deg,
+    rgba(162, 181, 187, 1) 0%,
+    rgba(207, 210, 207, 1) 50%,
+    rgba(245, 237, 220, 1) 100%
+  );
+  height: 100vh;
+}
+
+.container {
+  @include h.flexCenter-Hight(100vh);
+}
 
 .app {
-  width: 50%;
+  width: 80%;
+  max-width: 640px;
   // border-radius: 1rem;
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -23,8 +42,11 @@ $white: rgb(255, 255, 255, 1);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   .heading {
-    padding: 1rem 1rem 0.5rem;
-    border-bottom: 0.2rem solid $light-gray;
+    // padding: 1rem 1rem 0.5rem;
+    padding: h.pxRemCalc(15);
+    border-bottom: $divider;
+    background-color: $accent-red;
+    color: $light-beige;
 
     h1 {
       margin: 0;
@@ -33,11 +55,55 @@ $white: rgb(255, 255, 255, 1);
   }
 }
 
-.task-item {
+#task-form-add {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  border-bottom: $divider;
+  background-color: $white;
+  // position: relative;
+  // column-gap: 20px;
+  // flex-direction: row;
+  // justify-content: space-between;
+  // align-items: center;
+
+  &--input {
+    @include h.padAllRem(10, 10, 10, 10);
+    flex-grow: 1;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  &--button {
+    color: darken($dark-gray, 50%);
+    font-weight: 600;
+    text-shadow: 1px 1px $white;
+    @include h.padThreeRem(0, 10, 0);
+    background: $light-gray;
+    cursor: pointer;
+
+    // background: linear-gradient(
+    //   180deg,
+    //   $light-gray 0%,
+    //   $dark-gray 20%,
+    //   $dark-gray 80%,
+    //   $light-gray 100%
+    // );
+
+    // position: absolute;
+    // right: 0;
+    // top: 0;
+    // height: 100%;
+
+    &:hover {
+      // border-right: $sideBorder;
+      border-left: $sideBorder;
+      color: $accent-red;
+      text-shadow: 1px 1px $light-beige;
+    }
+  }
+}
+
+.task-item {
+  @include h.flexRawSpace;
 
   .task-item--options {
     display: inline-flex;

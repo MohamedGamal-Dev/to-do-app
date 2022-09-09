@@ -191,6 +191,17 @@ html {
   box-sizing: inherit;
 }
 
+input,
+button {
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: sans-serif, Helvetica, Arial;
   background: rgb(162, 181, 187);
@@ -199,7 +210,6 @@ body {
 }
 
 .container {
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,18 +217,46 @@ body {
 }
 
 .app {
-  width: 50%;
+  width: 80%;
+  max-width: 640px;
   background: rgb(255, 255, 255);
   background: linear-gradient(180deg, rgb(207, 210, 207) 25%, rgb(245, 237, 220) 50%, rgb(255, 255, 255) 100%);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .app .heading {
-  padding: 1rem 1rem 0.5rem;
-  border-bottom: 0.2rem solid rgb(207, 210, 207);
+  padding: 0.9375rem;
+  border-bottom: 0.125rem rgb(207, 210, 207) solid;
+  background-color: rgb(235, 29, 54);
+  color: rgb(245, 237, 220);
 }
 .app .heading h1 {
   margin: 0;
   padding: 0;
+}
+
+#task-form-add {
+  display: flex;
+  border-bottom: 0.125rem rgb(207, 210, 207) solid;
+  background-color: rgb(255, 255, 255);
+}
+#task-form-add--input {
+  padding: 0.625rem 0.625rem 0.625rem 0.625rem;
+  flex-grow: 1;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+#task-form-add--button {
+  color: #283336;
+  font-weight: 600;
+  text-shadow: 1px 1px rgb(255, 255, 255);
+  padding: 0rem 0.625rem 0rem;
+  background: rgb(207, 210, 207);
+  cursor: pointer;
+}
+#task-form-add--button:hover {
+  border-left: 0.25rem rgb(235, 29, 54) solid;
+  color: rgb(235, 29, 54);
+  text-shadow: 1px 1px rgb(245, 237, 220);
 }
 
 .task-item {

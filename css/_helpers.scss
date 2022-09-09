@@ -1,9 +1,44 @@
+@function pxRemCalc($num) {
+  $remSize: calc($num / 16);
+  @return #{$remSize}rem;
+}
+// math.div($num, 16px) or calc($num / 16px)
 @function remCalc($num) {
-  $remSize: $num / 16px;
+  $remSize: calc($num / 16px);
   @return #{$remSize}rem;
 }
 
 @mixin fontSize($num) {
   font-size: $num;
   font-size: remCalc($num);
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexCenter-Hight($height) {
+  @include flexCenter;
+  height: #{$height};
+}
+
+@mixin flexRawSpace() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin padAllRem($top, $right, $bottom, $left) {
+  padding: pxRemCalc($top) pxRemCalc($right) pxRemCalc($bottom) pxRemCalc($left);
+}
+
+@mixin padThreeRem($hT, $vRl, $hB) {
+  padding: pxRemCalc($hT) pxRemCalc($vRl) pxRemCalc($hB);
+}
+
+@mixin marginAllRem($top, $right, $bottom, $left) {
+  margin: pxRemCalc($top) pxRemCalc($right) pxRemCalc($bottom) pxRemCalc($left);
 }

@@ -1,8 +1,8 @@
-@use './helpers';
+@use './helpers' as h;
 
 html {
   box-sizing: border-box;
-  @include helpers.fontSize(16px);
+  @include h.fontSize(16px);
 }
 *,
 *:before,
@@ -10,22 +10,15 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  font-family: sans-serif, Helvetica, Arial;
-  background: rgb(162, 181, 187);
-  background: linear-gradient(
-    180deg,
-    rgba(162, 181, 187, 1) 0%,
-    rgba(207, 210, 207, 1) 50%,
-    rgba(245, 237, 220, 1) 100%
-  );
-  height: 100vh;
-}
-
-.container {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+input,
+button {
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  // -webkit-box-shadow: none;
+  // -moz-box-shadow: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
 }

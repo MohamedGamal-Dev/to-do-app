@@ -6,6 +6,7 @@ let input = document.querySelector('#task-form-add--input');
 let submit = document.querySelector('#task-form-add--button');
 let listWrap = document.querySelector('.tasks-list-wrap');
 let tasks = document.querySelector('.tasks-list');
+let alertMsg = document.querySelector('.alert-msg');
 
 // ===* CREATE APP DATA *===
 let data = [];
@@ -16,15 +17,32 @@ let createData = () => {
   data = [...data, newTask];
 
   renderTask();
+  resetInputValidation();
 
   localStorage.setItem('data', JSON.stringify(data));
   console.log(data, '**DATA--CREATE**');
 };
 
+// ===*- VALIDATION -*===
+let inputValidation = (condition, createInputFunction) => {
+  if (condition) {
+    alertMsg.classList.remove('hidden');
+    alertMsg.innerHTML = "Task details can't be empty";
+  } else {
+    createInputFunction();
+  }
+};
+
+let resetInputValidation = () => {
+  alertMsg.innerHTML = '';
+  alertMsg.classList.add('hidden');
+};
+
 // ===*- ADD TASK -*===
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  createData();
+  let inputCheck = input.value === '';
+  inputValidation(inputCheck, createData);
 });
 
 // ===* READ APP DATA *===
@@ -42,7 +60,8 @@ let createTaskItem = (task) => {
   let taskItemText = document.createElement('div');
   let taskItemTextInner = document.createTextNode(`${task.text}`);
   let taskItemEditInput = document.createElement('input');
-  taskItemEditInput.value = task.text;
+  let taskItemEditInputMsg = document.createElement('div');
+  let taskItemEditInputBreak = document.createElement('div');
 
   let taskOptions = document.createElement('div');
   let taskOptionsEdit = document.createElement('div');
@@ -55,12 +74,16 @@ let createTaskItem = (task) => {
   let taskOptionsDeleteBtn = document.createElement('button');
   let taskOptionsDeleteBtnInner = document.createTextNode('Delete');
 
+  taskItemEditInput.value = task.text;
+
   taskItem.classList.add('task-item');
   taskItem.setAttribute('id', `${task.id}`);
   taskItemText.classList.add('task-item--text');
   taskItemEditInput.classList.add('task-item--text__input');
   taskItemEditInput.setAttribute('id', `${task.id}`);
   taskItemEditInput.setAttribute('type', 'text');
+  taskItemEditInputMsg.classList.add('task-item--options__alert-msg');
+  taskItemEditInputBreak.classList.add('flex-break');
 
   taskOptions.classList.add('task-item--options');
   taskOptions.classList.add('task-item--options__divider');
@@ -70,10 +93,18 @@ let createTaskItem = (task) => {
 
   taskItemEditInput.classList.add('hidden');
   taskOptionsEditSave.classList.add('hidden');
+  taskItemEditInputMsg.classList.add('hidden');
 
   tasks.append(taskItem);
 
-  taskItem.append(taskItemText, taskItemEditInput, taskOptions);
+  taskItem.append(
+    taskItemText,
+    taskItemEditInput,
+    taskOptions,
+    taskItemEditInputBreak,
+    taskItemEditInputMsg
+  );
+
   taskItemText.appendChild(taskItemTextInner);
 
   taskOptions.append(taskOptionsEdit, taskOptionsEditSave, taskOptionsDelete);
@@ -98,21 +129,32 @@ let createTaskItem = (task) => {
   });
 
   taskOptionsEditSave.addEventListener('click', function (e) {
-    taskItemEditInput.classList.toggle('hidden');
-    taskOptionsEditSave.classList.toggle('hidden');
-    taskItemText.classList.toggle('hidden');
-    taskOptionsEdit.classList.toggle('hidden');
-    taskItem.classList.toggle('highlight-input');
     taskOptions.classList.toggle('task-item--options__divider');
 
-    taskItemText.innerHTML = taskItemEditInput.value;
+    if (taskItemEditInput.value === '') {
+      taskItemEditInputMsg.classList.remove('hidden');
+      taskItemEditInputMsg.innerHTML = "Task details can't be empty";
+      taskItemEditInput.value = taskItemText.innerText;
+      taskItemEditInput.focus();
+    } else {
+      taskItemEditInputMsg.innerHTML = '';
+      taskItemEditInputMsg.classList.add('hidden');
+      taskItem.classList.toggle('highlight-input');
 
-    data.map((task) => {
-      task.id === taskItemId ? (task.text = taskItemEditInput.value) : task;
-    });
+      taskItemEditInput.classList.toggle('hidden');
+      taskOptionsEditSave.classList.toggle('hidden');
+      taskItemText.classList.toggle('hidden');
+      taskOptionsEdit.classList.toggle('hidden');
 
-    localStorage.setItem('data', JSON.stringify(data));
-    console.log(data, '**DATA--UPDATED**');
+      taskItemText.innerHTML = taskItemEditInput.value;
+
+      data.map((task) => {
+        task.id === taskItemId ? (task.text = taskItemEditInput.value) : task;
+      });
+
+      localStorage.setItem('data', JSON.stringify(data));
+      console.log(data, '**DATA--UPDATED**');
+    }
   });
 
   // ===*- TOGGLE COMPLETED -*===

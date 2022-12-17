@@ -1,5 +1,4 @@
 @use './reset';
-// @use './helpers' as *;
 @use './helpers' as h;
 @use './general';
 
@@ -8,11 +7,9 @@ $light-gray: rgb(207, 210, 207); //#CFD2CF;
 $light-beige: rgb(245, 237, 220); //#F5EDDC;
 $accent-red: rgb(235, 29, 54); //#EB1D36;
 $white: rgb(255, 255, 255, 1);
-// h.pxRemCalc(15px);
 $divider: h.pxRemCalc(2) lighten($dark-gray, 20%) solid;
 $editDivider: h.pxRemCalc(2) $accent-red solid;
 $sideBorder: h.pxRemCalc(4) $accent-red solid;
-// lighten()
 
 body {
   font-family: sans-serif, Helvetica, Arial;
@@ -33,7 +30,6 @@ body {
 .app {
   width: 80%;
   max-width: 640px;
-  // border-radius: 1rem;
   background: rgb(255, 255, 255);
   background: linear-gradient(
     180deg,
@@ -44,7 +40,6 @@ body {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   .heading {
-    // padding: 1rem 1rem 0.5rem;
     padding: h.pxRemCalc(15);
     border-bottom: $divider;
     background-color: $accent-red;
@@ -61,11 +56,6 @@ body {
   display: flex;
   border-bottom: $divider;
   background-color: $white;
-  // position: relative;
-  // column-gap: 20px;
-  // flex-direction: row;
-  // justify-content: space-between;
-  // align-items: center;
 
   &--input {
     @include h.padAllRem(10, 10, 10, 10);
@@ -83,21 +73,7 @@ body {
     background: $light-gray;
     cursor: pointer;
 
-    // background: linear-gradient(
-    //   180deg,
-    //   $light-gray 0%,
-    //   $dark-gray 20%,
-    //   $dark-gray 80%,
-    //   $light-gray 100%
-    // );
-
-    // position: absolute;
-    // right: 0;
-    // top: 0;
-    // height: 100%;
-
     &:hover {
-      // border-right: $sideBorder;
       border-left: $sideBorder;
       color: $accent-red;
       text-shadow: 1px 1px $light-beige;
@@ -106,18 +82,9 @@ body {
 }
 
 .task-item {
-  // @include h.flexRawSpace;
   display: flex;
   flex-wrap: wrap;
-  // border-bottom: $divider;
   background-color: lighten($light-gray, 5%);
-  // background: linear-gradient(0deg, $light-beige 0%, $white 100%);
-  // column-gap: 20px;
-
-  // &:hover {
-  //   background-color: $light-beige;
-  //   background: linear-gradient(180deg, $light-beige 0%, $white 100%);
-  // }
 
   &:nth-child(even) {
     background: $white;
@@ -129,19 +96,14 @@ body {
     flex-grow: 1;
     overflow: hidden;
     font-size: 1.1rem;
-    // font-weight: 600;
     line-height: 1.25rem;
   }
 
   &--options {
     display: flex;
-
-    // column-gap: h.pxRemCalc(2);
-
     &__edit,
     &__save,
     &__delete {
-      // @include h.padThreeRem(0, 10, 0);
       padding: h.pxRemCalc(10);
       color: darken($dark-gray, 50%);
       font-weight: 600;
@@ -183,7 +145,6 @@ body {
 .completed {
   text-decoration: line-through;
   color: $accent-red;
-  // background-color: lighten($dark-gray, 0%);
 }
 
 .alert-msg {

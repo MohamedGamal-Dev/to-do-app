@@ -20,7 +20,6 @@ let createData = () => {
   resetInputValidation();
 
   localStorage.setItem('data', JSON.stringify(data));
-  console.log(data, '**DATA--CREATE**');
 };
 
 // ===*- VALIDATION -*===
@@ -153,7 +152,6 @@ let createTaskItem = (task) => {
       });
 
       localStorage.setItem('data', JSON.stringify(data));
-      console.log(data, '**DATA--UPDATED**');
     }
   });
 
@@ -170,7 +168,6 @@ let createTaskItem = (task) => {
     });
 
     localStorage.setItem('data', JSON.stringify(data));
-    console.log(data, '**DATA--TOGGLE-COMPLETED**');
   });
   task.completed && taskItemText.classList.toggle('completed');
   task.completed
@@ -182,12 +179,8 @@ let createTaskItem = (task) => {
     let filteredData = data.filter((task) => {
       return task.id !== taskItemId;
     });
-
     data = filteredData;
-
     localStorage.setItem('data', JSON.stringify(data));
-    console.log(data, '**DATA--DELETE**');
-
     renderTask();
   });
 };
@@ -196,7 +189,6 @@ let createTaskItem = (task) => {
 (() => {
   data = JSON.parse(localStorage.getItem('data')) || [];
   renderTask();
-  console.log(data, '**INITIALIZATION**');
 })();
 
 // === HELPERS (>=>

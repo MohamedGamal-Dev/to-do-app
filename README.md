@@ -1,4 +1,4 @@
-# React Blog App
+# Vanilla JavaScript ToDo App
 
 ToDO App ( Prototype for testing purposes ).
 
